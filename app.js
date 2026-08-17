@@ -1,6 +1,5 @@
 const defaultProducts=[
- {id:1,name:"منتج تجميلي",price:25000,cat:"كوزمتكس",desc:"أضيفي منتجك من لوحة المتجر.",image:""},
- {id:2,name:"عطر أنيق",price:35000,cat:"عطور",desc:"أضيفي منتجك من لوحة المتجر.",image:""}
+   {id:1,name:"Schauma 5&5 Feuchtigkeitsspende Multitalent-Kur",price:15000,cat:"شعر",desc:"علاج مرطب للشعر. يساعد على ترطيب الشعر والعناية به. التقييم 4.7 من 5 بناءً على 908 تقييمات.",image:""},
 ];
 let products=JSON.parse(localStorage.getItem("shinyProducts")||"null")||defaultProducts;
 let cart=JSON.parse(localStorage.getItem("shinyCart")||"[]");
