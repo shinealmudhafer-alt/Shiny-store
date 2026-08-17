@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>شايني ستور | كوزمتكس وعطور</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="logo">✦</span><div><b>شايني ستور</b><small>كوزمتكس • عطور</small></div></div>
+  <button class="cartBtn" onclick="openCart()">🛒 السلة <span id="cartCount">0</span></button>
+</header>
+
+<section class="hero">
+  <div><p class="eyebrow">SHINY STORE</p><h1>جمالك يستحق<br><span>شيئاً لامعاً ✨</span></h1>
+  <p>اكتشفي تشكيلة مختارة من مستحضرات التجميل والعطور.</p>
+  <button onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">تسوقي الآن</button></div>
+  <div class="heroCard">✨<strong>توصيل مجاني</strong><small>للطلبات فوق 80,000 د.ع</small></div>
+</section>
+
+<section class="loyalty"><div>🎁</div><div><b>اجمعي نقاطك واربحِ هدايا</b><p>كل 10,000 د.ع = نقطة واحدة • كل 20 نقطة = هدية</p></div></section>
+
+<main>
+  <div class="sectionHead"><h2>منتجاتنا</h2><button class="add" onclick="openProductForm()">＋ إضافة منتج</button></div>
+  <div class="chips"><button class="active" onclick="filterProducts('الكل',this)">الكل</button><button onclick="filterProducts('كوزمتكس',this)">كوزمتكس</button><button onclick="filterProducts('عطور',this)">عطور</button></div>
+  <div id="products" class="grid"></div>
+</main>
+
+<div id="cartModal" class="modal hidden"><div class="panel"><button class="close" onclick="closeCart()">×</button><h2>سلة المشتريات</h2><div id="cartItems"></div><div class="total"><span>المجموع</span><b id="subtotal">0 د.ع</b></div><button class="primary" onclick="checkout()">إتمام الطلب</button></div></div>
+
+<div id="checkoutModal" class="modal hidden"><div class="panel"><button class="close" onclick="closeCheckout()">×</button><h2>إتمام الطلب</h2>
+<form id="orderForm" onsubmit="submitOrder(event)">
+<input required id="name" placeholder="الاسم الكامل"><input required id="phone" placeholder="رقم الهاتف" type="tel">
+<select required id="province" onchange="updateShipping()"><option value="">اختر المحافظة</option><option>البصرة</option><option>أطراف البصرة</option><option>بغداد</option><option>نينوى</option><option>أربيل</option><option>النجف</option><option>كربلاء</option><option>ذي قار</option><option>ميسان</option><option>واسط</option><option>بابل</option><option>الديوانية</option><option>الأنبار</option><option>ديالى</option><option>صلاح الدين</option><option>كركوك</option><option>السليمانية</option><option>دهوك</option><option>المثنى</option></select>
+<textarea required id="address" placeholder="العنوان بالتفصيل"></textarea>
+<select id="payment"><option>الدفع عند الاستلام</option><option>زين كاش</option></select>
+<div class="summary"><span>الشحن</span><b id="shipping">0 د.ع</b><span>الإجمالي</span><b id="grandTotal">0 د.ع</b></div>
+<button class="primary" type="submit">تأكيد الطلب</button></form></div></div>
+
+<div id="productModal" class="modal hidden"><div class="panel"><button class="close" onclick="closeProductForm()">×</button><h2>إضافة منتج</h2>
+<form id="productForm" onsubmit="addProduct(event)">
+<input required id="pname" placeholder="اسم المنتج"><input required id="pprice" type="number" min="0" placeholder="السعر بالدينار">
+<select id="pcat"><option>كوزمتكس</option><option>عطور</option></select><input id="pimage" placeholder="رابط صورة المنتج (اختياري)">
+<textarea id="pdesc" placeholder="وصف المنتج (اختياري)"></textarea><button class="primary">حفظ المنتج</button></form></div></div>
+
+<script src="app.js"></script>
+</body></html>
