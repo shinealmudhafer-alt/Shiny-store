@@ -40,7 +40,7 @@
 <div id="productModal" class="modal hidden"><div class="panel"><button class="close" onclick="closeProductForm()">×</button><h2>إضافة منتج</h2>
 <form id="productForm" onsubmit="addProduct(event)">
 <input required id="pname" placeholder="اسم المنتج"><input required id="pprice" type="number" min="0" placeholder="السعر بالدينار">
-<select id="pcat"><option>كوزمتكس</option><option>عطور</option></select><input id="pimage" placeholder="رابط صورة المنتج (اختياري)">
+<select id="pcat"><option>كوزمتكس</option><option>عطور</option></select><input id="pimage" type="file" accept="image/*">
 <textarea id="pdesc" placeholder="وصف المنتج (اختياري)"></textarea><button class="primary">حفظ المنتج</button></form></div></div>
 
 <script src="app.js"></script>
