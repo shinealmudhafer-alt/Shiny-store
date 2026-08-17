@@ -1,7 +1,7 @@
 const defaultProducts=[
-   {id:1,name:"Schauma 5&5 Feuchtigkeitsspende Multitalent-Kur",price:15000,cat:"شعر",desc:"علاج مرطب للشعر. يساعد على ترطيب الشعر والعناية به. التقييم 4.7 من 5 بناءً على 908 تقييمات.",image:""},
+   {id:999,name:"Schauma 5&5 Feuchtigkeitsspende Multitalent-Kur",price:15000,cat:"شعر",desc:"علاج مرطب للشعر. يساعد على ترطيب الشعر والعناية به. التقييم 4.7 من 5 بناءً على 908 تقييمات.",image:""},
 ];
-let products=JSON.parse(localStorage.getItem("shinyProducts")||"null")||defaultProducts;
+let products=JSON.parse(localStorage.getItem("shinyProducts")||"[]");products=[...products,...defaultProducts.filter(d=>!products.some(p=>p.id===d.id))];
 let cart=JSON.parse(localStorage.getItem("shinyCart")||"[]");
 let currentFilter="الكل";
 const fmt=n=>new Intl.NumberFormat("ar-IQ").format(n)+" د.ع";
