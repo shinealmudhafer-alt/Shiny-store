@@ -30,5 +30,37 @@ function updateShipping(){let p=document.getElementById("province").value,s=subt
 function submitOrder(e){e.preventDefault();let s=subtotal(),p=document.getElementById("province").value,fee=p==="البصرة"?3000:p==="أطراف البصرة"?4000:5000;if(s>=80000)fee=0;let order={number:"SH-"+Date.now().toString().slice(-7),name:document.getElementById("name").value,phone:document.getElementById("phone").value,province:p,address:document.getElementById("address").value,payment:document.getElementById("payment").value,total:s+fee,items:cart};localStorage.setItem("lastOrder",JSON.stringify(order));alert("تم استلام طلبك رقم "+order.number+" ✅");cart=[];save();render();closeCheckout()}
 function openProductForm(){document.getElementById("productModal").classList.remove("hidden")}
 function closeProductForm(){document.getElementById("productModal").classList.add("hidden")}
-function addProduct(e){e.preventDefault();products.push({id:Date.now(),name:document.getElementById("pname").value,price:Number(document.getElementById("pprice").value),cat:document.getElementById("pcat").value,image:document.getElementById("pimage").value,desc:document.getElementById("pdesc").value});save();render();e.target.reset();closeProductForm();alert("تمت إضافة المنتج ✅")}
+function addProduct(e){
+  e.preventDefault();
+
+  const file = document.getElementById("pimage").files[0];
+
+  const product = {
+    id: Date.now(),
+    name: document.getElementById("pname").value,
+    price: Number(document.getElementById("pprice").value),
+    cat: document.getElementById("pcat").value,
+    image: "",
+    desc: document.getElementById("pdesc").value
+  };
+
+  if(file){
+    const reader = new FileReader();
+
+    reader.onload = function(){
+      product.image = reader.result;
+      products.push(product);
+      save();
+      render();
+      closeProductForm();
+    };
+
+    reader.readAsDataURL(file);
+  } else {
+    products.push(product);
+    save();
+    render();
+    closeProductForm();
+  }
+}
 render();
