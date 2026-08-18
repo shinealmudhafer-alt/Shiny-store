@@ -27,7 +27,51 @@ function changeQty(id,d){let x=cart.find(i=>i.id===id);if(x){x.qty+=d;if(x.qty<=
 function checkout(){if(!cart.length)return alert("السلة فارغة");closeCart();document.getElementById("checkoutModal").classList.remove("hidden");updateShipping()}
 function closeCheckout(){document.getElementById("checkoutModal").classList.add("hidden")}
 function updateShipping(){let p=document.getElementById("province").value,s=subtotal();let fee=p==="البصرة"?3000:p==="أطراف البصرة"?4000:(p?5000:0);if(s>=80000)fee=0;document.getElementById("shipping").textContent=fmt(fee);document.getElementById("grandTotal").textContent=fmt(s+fee)}
-function submitOrder(e){e.preventDefault();let s=subtotal(),p=document.getElementById("province").value,fee=p==="البصرة"?3000:p==="أطراف البصرة"?4000:5000;if(s>=80000)fee=0;let order={number:"SH-"+Date.now().toString().slice(-7),name:document.getElementById("name").value,phone:document.getElementById("phone").value,province:p,address:document.getElementById("address").value,payment:document.getElementById("payment").value,total:s+fee,items:cart};localStorage.setItem("lastOrder",JSON.stringify(order));alert("تم استلام طلبك رقم "+order.number+" ✅");cart=[];save();render();closeCheckout()}
+function submitOrder(e){
+  e.preventDefault();
+
+  if(!cart.length){
+    alert("السلة فارغة");
+    return;
+  }
+
+  const name = document.getElementById("name").value;
+  const phone = document.getElementById("phone").value;
+  const province = document.getElementById("province").value;
+  const address = document.getElementById("address").value;
+  const payment = document.getElementById("payment").value;
+
+  let message = "🛍️ طلب جديد من متجر Shiny\n\n";
+  message += "👤 الاسم: " + name + "\n";
+  message += "📱 الهاتف: " + phone + "\n";
+  message += "📍 المحافظة: " + province + "\n";
+  message += "🏠 العنوان: " + address + "\n";
+  message += "💳 الدفع: " + payment + "\n\n";
+
+  message += "🛒 المنتجات:\n";
+
+  cart.forEach(item => {
+    const product = products.find(p => p.id === item.id);
+
+    if(product){
+      message += "• " + product.name +
+        " × " + item.qty +
+        " = " + (product.price * item.qty).toLocaleString() + " د.ع\n";
+    }
+  });
+
+  const total = subtotal();
+
+  message += "\n💰 الإجمالي: " + total.toLocaleString() + " د.ع";
+
+  const whatsappNumber = "4915679214272";
+
+  const whatsappUrl =
+    "https://wa.me/" + whatsappNumber +
+    "?text=" + encodeURIComponent(message);
+
+  window.open(whatsappUrl, "_blank");
+}
 function openProductForm(){document.getElementById("productModal").classList.remove("hidden")}
 function closeProductForm(){document.getElementById("productModal").classList.add("hidden")}
 function addProduct(e){
